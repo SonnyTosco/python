@@ -10,3 +10,15 @@ Create another program that prints all the multiples of 5 from 5 to 1,000,000.
 for count in range (5,1000000):
 ...     if (count%5==0):
 ...             print count
+
+Create a program that prints the sum of all the values in the list:
+a=[1,2,5,10,255,3]
+b=sum(a)
+print b
+
+Create a program that prints the average list of values in the list:
+
+a = [1, 2, 5, 10, 255, 3]
+b=sum(a)
+c=b/len(a)
+print c
