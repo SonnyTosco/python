@@ -1,6 +1,6 @@
-Create a program that prompts the user ten times for a test score between 60 and 100.
-Each time a score is generated, your program should display what is the grade of
-that score. Here is the grade table:
+# Create a program that prompts the user ten times for a test score between 60 and 100.
+# Each time a score is generated, your program should display what is the grade of
+# that score. Here is the grade table:
 
 def grades(a):
     a=input()
