@@ -8,12 +8,14 @@
 # *****
 # *******
 # *********************************
-def multiply (a,var):
+def draw_stars (a,var):
     b=[]
     for i in a:
         i=i*var
         b.append(i)
     return b
 a=[2,4,10,16]
-b=multiply(a,'*')
-print b
+for i in draw_stars(a,'*'):
+    if i in a!=input
+        c=len(arr[i])
+    print i
