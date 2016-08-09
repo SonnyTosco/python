@@ -8,15 +8,15 @@
 # *****
 # *******
 # *********************************
-# def draw_stars (a,var):
-#     b=[]
-#     for i in a:
-#         i=i*var
-#         b.append(i)
-#     return b
-# a=[2,4,10,16]
-# for i in draw_stars(a,'*'):
-#     print i
+def draw_stars (a,var):
+    b=[]
+    for i in a:
+        i=i*var
+        b.append(i)
+    return b
+a=[2,4,10,16]
+for i in draw_stars(a,'*'):
+    print i
 
 # Modify the function above. Allow a list containing integers and strings to be passed
 # to the  draw_stars() function. When a string is passed, instead of  displaying *,
