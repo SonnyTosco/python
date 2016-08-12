@@ -7,8 +7,8 @@ def index():
     return render_template('new.html')
 @app.route('/create', methods = ['POST'])
 def create():
-    data = request.form
-    print data
-    return render_template('show.html', data=data)
+    d = request.form
+    print d
+    return render_template('show.html', data=d)
 if __name__ == "__main__":
     app.run(debug=True)

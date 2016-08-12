@@ -9,8 +9,19 @@ def index():
         session['counter']=0
     session['counter']=session['counter']+1
     return render_template('index.html')
-# def counter():
-#     print "g2g2"
-#     counter=request.form['counter']
-#     return render_template('index.html', counter='1')
+    return redirect('/')
+@app.route('/ninja')
+def ninja():
+    print "all good"
+    if session.get('counter')==None:
+        session['counter']=0
+    session['counter']=session['counter']+1
+    return redirect('/')
+@app.route('/zero')
+def ninja():
+    print "all good"
+    if session.get('counter')==None:
+        session['counter']=0
+    session['counter']=session['counter']+1
+    return redirect('/')
 app.run(debug=True)
