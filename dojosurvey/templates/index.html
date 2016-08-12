@@ -3,9 +3,9 @@
        <title>Dojo Survey</title>
     </head>
     <body>
-      <form action='/result' method='post'>
+      <form class="" action="/create" method="post">
           Name: <input type='text' name='name'><br>
-          Location: <input list='location' name='location'><br>
+          Location: <select list='location' name='location'><br>
                                 <datalist id='location'>
                                   <option value'SanJose'>San Jose</option>
                                   <option value'Seattle'>Seattle</option>
@@ -13,8 +13,8 @@
                                   <option value'Chicago'>Chicago</option>
                                   <option value'WashingtonDC'>Washington DC</option>
                                   <option value'Dallas'>Dallas</option>
-                                </datalist>
-          Favorite Language: <input list='language' name='language'><br>
+                                </datalist></select>
+          Favorite Language: <select list='language' name='language'><br>
                                 <datalist id='language'>
                                   <option value'Python'>Python</option>
                                   <option value'Ruby'>Ruby</option>
@@ -27,7 +27,7 @@
                                   <option value'C'>C</option>
                                   <option value'Java'>Java</option>
                                   <option value'PHP'>PHP</option>
-                                </datalist>
+                                </datalist></select>
           Comment (optional): <textarea name='comments' rows="10" cols="30">
                     </textarea>
           <input type='submit' value='submit'>

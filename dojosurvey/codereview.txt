@@ -1,0 +1,18 @@
+Question on Dojo Survey
+file: server.py
+- why do we put session in the first line of server.py
+- what does the secret_key do in line 3
+- how does this logic work in the server file
+    @app.route('/create', methods = ['POST'])
+    def create():
+        data = request.form <- will data always be the one that's used?
+        print data
+        return render_template('show.html', data=data)
+
+file: new.html
+- why is form class used?
+
+
+When running
+- what does Method not allowed mean? Tried running the program and didn't work out.
+  - RESOLVED: indentation problem in the server.py file
