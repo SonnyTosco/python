@@ -20,6 +20,6 @@ def ninja():
 @app.route('/zero', methods=['POST'])
 def zero():
     print "all good"
-    session['counter']=None
+    session['counter']=0
     return redirect('/')
 app.run(debug=True)
