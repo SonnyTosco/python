@@ -1,3 +1,16 @@
 #container{
   text-align: center;
 }
+#win{
+  background-color: green;
+  color: white;
+  height:200px;
+  weight:200px;
+
+}
+#lose{
+  background-color: red;
+  color: white;
+  height:200px;
+  weight:200px;
+}
