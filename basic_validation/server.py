@@ -8,9 +8,10 @@ def index():
 @app.route('/process', methods=['POST'])
 def process():
     print "Gucci"
+    data=request.form
     if len(request.form['name']) < 1:
         flash("Name cannot be empty!")
     else:
         flash("Success! Your name is {}".format(request.form['name']))
-    return redirect('/') # either way the application should return to the index and display the message
+    return redirect('/', data=data) # either way the application should return to the index and display the message
 app.run(debug=True)
