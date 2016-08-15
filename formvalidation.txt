@@ -9,3 +9,62 @@ Most important concepts:
 - Alerting the user of their errors (if they exist)
 
 Getting Started
+- most important to know how to do the if/else statement
+- form validation centers around using if statements combined with functions
+that return TRUE or FALSE depending on the data we give them
+
+Validation Step 1- Conditionals
+- every validation is conditional
+- Pseudo code would look like:
+
+If the name field in the POST data is empty
+  Display validation error
+Else:
+  display success message
+
+How should we check if the name field is empty? This is where the handy built-in
+python function "len()" comes in!
+
+Len ()
+The len function takes in a string as an argument and returns the length of the string
+
+Validation Step 2- Flash Messages on the server
+- flash messages are strings that exist for one redirect cycle
+  - similar to session, you can access flash messages through embedded
+  python tags {{}} & {%%} on the views and display them to the user
+
+Validation Step 3- Flash emssages on the client
+- Flash helps us with flash meesages by giving us access to a function on the client side that allows
+us to get all flash messages as a list
+- the function to use this is "get_flashed_messages()". Example below
+
+<html>
+<head>
+  <title>Basic Validation Example</title>
+</head>
+<body>
+  <h1>Enter a Valid(Any) Name!</h1>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <p>{{message}}</p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  <form action='/process' method='POST'>
+    Name:<input type="text" name="name">
+    <input type="submit" value="Submit">
+  </form>
+</body>
+</html>
+
+A lot is happening in the code that we added. Let's go over it line by line
+
+{% with messages = get_flashed_messages() %}
+  The with messages here helps us declare a variable in our template that we can use within a specific scope.
+{% if messages %}
+  Check if there are even any messages that came back from the get_flashed_messages() function
+{% for message in messages %}
+  Loop through all messages
+<p>{{message}}</p>
+  Print the messages one by one each in a paragraph tag
