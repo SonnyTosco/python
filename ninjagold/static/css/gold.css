@@ -1,0 +1,12 @@
+#gold{
+  display:inline-block
+}
+
+#ninja{
+  display: inline-block;
+  background-color:yellow;
+  height:200px;
+  width:200px;
+  padding: 10px;
+  text-align: center;
+}

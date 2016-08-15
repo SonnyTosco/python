@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>Ninja Money</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/gold.css')}}">
+  </head>
+  <body>
+    <div id="gold">
+      <h4>Your gold:{{session['gold']}}
+      <div id="ninja">
+        <form action="/process_money" method="post">
+          <h2>Farm</h2>
+          <h4>(earns 10-20 golds)</h4>
+          <input type="hidden" name="building" value="farm" />
+          <input type="submit" value="Find Gold!"/>
+        </form>
+      </div>
+      <div id="ninja">
+        <form action="/process_money" method="post">
+          <h2>Cave</h2>
+          <h4>(earns 5-10 golds)</h4>
+          <input type="hidden" name="building" value="cave" />
+          <input type="submit" value="Find Gold!"/>
+        </form>
+      </div>
+      <div id="ninja">
+        <form action="/process_money" method="post">
+          <h2>House</h2>
+          <h4>(earns 2-5 golds)</h4>
+          <input type="hidden" name="building" value="house" />
+          <input type="submit" value="Find Gold!"/>
+        </form>
+      </div>
+      <div id="ninja">
+        <form action="/process_money" method="post">
+          <h2>Casino</h2>
+          <h4>(earns/takes 0-50 golds)</h4>
+          <input type="hidden" name="building" value="casino" />
+          <input type="submit" value="Find Gold!"/>
+        </form>
+      </div>
+    <h4>Activities</h4> #Portion not working. Need to get a better understanding of this portion 
+      {% if session['building']==request.form['farm'] %}
+        <p>Earned {{session['farm']}} from the farm!</p>
+      {% elif session['building']==request.form['cave'] %}
+        <p>Earned {{session['cave']}} from the cave!</p>
+      {% elif session['building']==request.form['house'] %}
+        <p>Earned {{session['house']}} from the house!</p>
+      {% elif session['building']==request.form['casino'] %}
+        <p>Earned {{session['casino']}} from the casino!</p>
+      {% endif %}
+    </div>
+  </body>
+</html>

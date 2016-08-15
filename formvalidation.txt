@@ -1,0 +1,11 @@
+Basic Form Validation
+
+Most important concepts:
+- Logic
+  - what data do we want to validate?
+- Checking if the data is present
+- Making sure the data is in the correct format
+- Sending fhe user to the correct destination whether their data is valid or not
+- Alerting the user of their errors (if they exist)
+
+Getting Started
