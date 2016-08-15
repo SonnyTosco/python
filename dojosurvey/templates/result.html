@@ -5,6 +5,13 @@
   <body>
     <h2><u>Submitted Info</u></h2>
     <p>Name: {{data['name']}}</p>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <p>{{message}}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
     <p>Dojo Location: {{data['location']}}</p>
     <p>Language: {{data['language']}}</p>
     <p>Comments: {{data['comments']}}</p>
