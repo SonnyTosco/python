@@ -1,0 +1,5 @@
+DB errors
+- making sure that the port in your mysqlconnection.py file matches the one
+in your mysql workbench
+- make sure that the db is named consistently throughout
+- make sure there aren't multiple instances of your db running
