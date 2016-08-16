@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Disappearing Ninjas</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/ninja.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/ninja.js') }}"></script>
+  </head>
+  <body>
+      {% if displayAll==True %}
+      <img src="{{ url_for('static', filename='ninjas/donatello.jpg') }}">
+      <img src="{{ url_for('static', filename='ninjas/leonardo.jpg') }}">
+      <img src="{{ url_for('static', filename='ninjas/michelangelo.jpg') }}">
+      <img src="{{ url_for('static', filename='ninjas/raphael.jpg') }}">
+      <img src="{{ url_for('static', filename='ninjas/notapril.jpg') }}">
+      {% endif %}
+      {% if displayAll == False %}
+        {% if color =='blue' %}
+          <img src="{{ url_for('static', filename='ninjas/leonardo.jpg') }}">
+        {% elif color=='orange' %}
+          <img src="{{ url_for('static', filename='ninjas/michelangelo.jpg') }}">
+        {% elif color=='purple' %}
+          <img src="{{ url_for('static', filename='ninjas/donatello.jpg') }}">
+        {% elif color=='red' %}
+          <img src="{{ url_for('static', filename='ninjas/raphael.jpg') }}">
+        {% else %}
+          <img src="{{ url_for('static', filename='ninjas/notapril.jpg') }}">
+        {% endif %}
+      {% endif %}
+  </body>
+</html>
