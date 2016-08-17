@@ -13,7 +13,6 @@ def index():
     return render_template("index.html")
 @app.route('/friends', methods=['POST'])
 def submit():
-    data=request.form
     print "Gucci"
     if len(data['email']) < 1:
         flash("Email cannot be blank!")
@@ -21,15 +20,16 @@ def submit():
         flash("Invalid Email Address!")
     else:
         flash("Success!")
-    print "Carter4"
-    print request.form['email']
-    query = "INSERT INTO friends (email, created_at, updated_at)\
+    query = "INSERT INTO emaildb (email, created_at, updated_at)\
              VALUES (:email, NOW(), NOW())"
-    # We'll then create a dictionary of data from the POST data received.
     data = {
              'email': request.form['email']
            }
     mysql.query_db(query, data)
+    print "Carter4"
+    return redirect('/')
+@app.route()
+def result():
     session['email'].insert(0, {'color':'green','text':'The email you entered\
     {} is a valid email address.\
     from the {}! ({})'.format(request.form['email'], strftime("%Y/%m/%d %I:%M %p").lower())})

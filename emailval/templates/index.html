@@ -3,15 +3,8 @@
   <title>Friends</title>
 </head>
 <body>
-  {{ all_friends }}
-  <h1>These are all my friends!</h1>
-<!-- with all the data we can then construct a more structured output -->
-  {% for friend in all_friends: %}
-     <p>Email: {{ friend['email'] }}</p>
-     <hr>
-  {% endfor %}
+    <p>Email: {{ friend['email'] }}</p>
   <hr>
-  <h2>Add a Friend</h2>
   <form action='/friends' method='POST'>
     <label for="email">Email Address: <input type="text" name="email" id="email"></label>
     {% with messages = get_flashed_messages() %}
