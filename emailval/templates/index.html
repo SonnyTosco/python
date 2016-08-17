@@ -3,8 +3,6 @@
   <title>Friends</title>
 </head>
 <body>
-    <p>Email: {{ friend['email'] }}</p>
-  <hr>
   <form action='/friends' method='POST'>
     <label for="email">Email Address: <input type="text" name="email" id="email"></label>
     {% with messages = get_flashed_messages() %}

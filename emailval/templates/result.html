@@ -3,17 +3,7 @@
   <title>Friends</title>
 </head>
 <body>
-<!-- with all the data we can then construct a more structured output -->
-  {% for email in all_friends: %}
-     <p>Email: {{ friend['email'] }}</p>
-     <hr>
-  {% endfor %}
-  <hr>
   <h2>Email Addresses Entered:</h2>
-  <form action='/result' method='POST'>
-    {% for email in session['email'] %}
-      <p class="{{ email['color'] }}">{{ email['text'] }}</p>
-    {% endfor %}
-  </form>
+  <p>{{session['email']}} is a valid email at {{session['time']}}
 </body>
 </html>

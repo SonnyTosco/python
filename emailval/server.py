@@ -1,37 +1,46 @@
 from flask import Flask, render_template, redirect, request, session, flash
-# the "re" module will let us perform some regular expression operations
+from mysqlconnection import MySQLConnector
 import re
-# create a regular expression object that we can use run operations on
+import datetime
+now = datetime.datetime.now()
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 app = Flask(__name__)
+mysql = MySQLConnector(app,'emaildb')
 app.secret_key = "ThisIsSecret!"
+
 @app.route('/', methods=['GET'])
 def index():
     print "g2g"
-    query = "SELECT * FROM emaildb"                           # define your query
-    email = mysql.query_db(query)
+    # query = "SELECT * FROM emails"                           # define your query
+    # emaildb = mysql.query_db(query)
     return render_template("index.html")
+
 @app.route('/friends', methods=['POST'])
 def submit():
     print "Gucci"
+    data=request.form
+    print data ['email']
     if len(data['email']) < 1:
         flash("Email cannot be blank!")
     elif not EMAIL_REGEX.match(data['email']):
         flash("Invalid Email Address!")
     else:
         flash("Success!")
-    query = "INSERT INTO emaildb (email, created_at, updated_at)\
-             VALUES (:email, NOW(), NOW())"
-    data = {
-             'email': request.form['email']
-           }
-    mysql.query_db(query, data)
+        query = "INSERT INTO emails (email, created_at, updated_at)\
+                 VALUES (:email, NOW(), NOW())"
+        data = {
+                 'email': data['email']
+               }
+        mysql.query_db(query, data)
+        session['email']=data['email']
+        session['time']=now.strftime("%Y-%m-%d %H:%M")
+        return redirect("/result")
     print "Carter4"
     return redirect('/')
-@app.route()
+
+@app.route('/result')
 def result():
-    session['email'].insert(0, {'color':'green','text':'The email you entered\
-    {} is a valid email address.\
-    from the {}! ({})'.format(request.form['email'], strftime("%Y/%m/%d %I:%M %p").lower())})
+    print session['email']
+    print session['time']
     return render_template("result.html")
 app.run(debug=True)
