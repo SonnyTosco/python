@@ -3,5 +3,27 @@
     <title>Full Friends</title>
   </head>
   <body>
+    <h1>Some of my friends</h1>
+    <table>
+    	<thead>
+    		<tr><th>First Name</th><th>Price</th><th>Stock</th><th>SKU</th><th>Actions</th></tr>
+    	</thead>
+    	<tbody>
+    		{% for product in products %}
+    		<tr>
+    			<td>{{product['name']}}</td>
+    			<td>{{product['price']}}</td>
+    			<td>{{product['stock']}}</td>
+    			<td>{{product['sku']}}</td>
+    			<td>
+    				<a href="/show/{{product['id']}}">View</a>
+    				<a href="/edit/{{product['id']}}">Edit</a>
+    				<a href="/delete/{{product['id']}}">Delete</a>
+    			</td>
+    		</tr>
+    		{% endfor %}
+
+    	</tbody>
+    </table>
   </body>
 </html>

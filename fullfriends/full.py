@@ -3,11 +3,12 @@ from mysqlconnection import MySQLConnector
 from flask.ext.bcrypt import Bcrypt
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-mysql = MySQLConnector(app, 'my_database_here')
+mysql = MySQLConnector(app, 'fullfriendsdb')
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template("index.html")
+    query="SELECT * FROM friends"
+    return render_template("index.html", friends=mysql.query_db(query))
 
 @app.route('/friends', methods=['POST'])
 def create():
