@@ -26,7 +26,6 @@ def add():
 #creates an account
 @app.route('/create', methods=['POST'])
 def create():
-    print "500"
     data=request.form
     password = bcrypt.generate_password_hash(data['password'])
     print data['fname']
