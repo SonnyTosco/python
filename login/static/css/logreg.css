@@ -1,6 +1,14 @@
 #registration{
-
+  height:200px;
+  width:500px;
+  border: 2px solid black;
+  text-align: center;
+  padding:20px;
 }
 #login{
-
+  height:100px;
+  width:500px;
+  border: 2px solid black;
+  text-align: center;
+  padding:20px;
 }
