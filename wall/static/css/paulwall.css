@@ -1,0 +1,23 @@
+#container{
+  width: 600px;
+  height:auto;
+  margin: auto;
+  width: 50%;
+  display: block;
+  margin-top: 50px;
+}
+#registration{
+  height:150px;
+  width:500px;
+  border: 2px solid black;
+  text-align: center;
+  padding:40px;
+}
+#login{
+  height:100px;
+  width:580px;
+  border: 2px solid black;
+  text-align: center;
+  padding-top:20px;
+  margin-top:20px;
+}

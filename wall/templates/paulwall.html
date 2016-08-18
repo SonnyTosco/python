@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>Wonderwall</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/whatitdo.css') }}">
+    <link
+  </head>
+  <body>
+    <div id="menu">
+    </div>
+    <div id="post">
+      <form action='/post' method='POST'>
+        Post: <input type="textarea" name="post"><br>
+        <input type="submit" value="Post">
+      </form>
+    </div>
+  </body>
+</html>
