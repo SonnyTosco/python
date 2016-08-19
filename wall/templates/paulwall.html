@@ -4,7 +4,6 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/whatitdo.css') }}">
   </head>
   <body>
-    {{session['id']}}
     <div id="menu">
       <img src="http://static1.squarespace.com/static/53e15e38e4b04a0a09fcc77c/56673ac34bf11818f48a72f4/56673bdc40667a8a4e430242/1450277324217/Icon-48.png?format=500w" height="50" width="50">
       <div id="left">
@@ -22,12 +21,15 @@
         <a href="/post/{{session['id']}}/delete">Delete</a>
       </form>
       {% for message in messages %}
-        <p>{{message['message']}}</p>
+  			<p>{{message['message']}}</p>
       {% endfor %}
       <form action='/comment' method='POST'>
         Comment: <input type="textarea" name="comment"><br>
-        <input type="submit" value="Comment">
+        <input type="submit" value="comment">
       </form>
+      {% for comment in comments %}
+        <p>{{comment['comment']}}</p>
+      {% endfor %}
     </div>
   </body>
 </html>

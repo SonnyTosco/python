@@ -20,7 +20,29 @@ def index():
 @app.route('/paulwall', methods=['GET'])
 def wall():
     print "Slab God"
-    return render_template("paulwall.html")
+    data = 	{'user_id': session.get('user_id')}
+    query = '''SELECT * FROM users
+    			WHERE id = :user_id LIMIT 1
+    		'''
+    user = mysql.query_db(query, data)
+
+    #messages
+    query = '''SELECT message, messages.id as message_id,
+    			messages.user_id as user_id,
+    			CONCAT(users.fname, ' ', users.lname) as name
+    			FROM messages
+    			LEFT JOIN users on messages.user_id = users.id
+    			ORDER BY messages.created_at DESC
+    		'''
+    messages = mysql.query_db(query)
+
+    #comments
+    query = '''SELECT comments.user_id, message_id, comment FROM comments
+                JOIN messages on messages.id=comments.message_id
+                JOIN users ON users.id=comments.user_id
+                ORDER BY comments.created_at DESC'''
+    comments = mysql.query_db(query)
+    return render_template("paulwall.html", user=user, messages=messages, comments=comments)
 
 #Add a new user
 @app.route('/create', methods=['POST'])
@@ -71,6 +93,7 @@ def login():
         else:
             print "line 76, entered pw", data['password']
             print "bcrypt methods, line 77:", dir(bcrypt)
+            print email
             if bcrypt.check_password_hash(email[0]['password'], data['password']):
                 print "pw from db, line 77", email[0]['password']
                 session['id']=email[0]['id']
@@ -87,7 +110,7 @@ def login():
 def post():
     print "line 88"
     print request.form
-    query =   '''INSERT INTO messages (users_id, message, created_at, updated_at)
+    query =   '''INSERT INTO messages (user_id, message, created_at, updated_at)
                 VALUES (:id, :message, NOW(), NOW())'''
     print "line 91"
     data  = {
@@ -104,11 +127,11 @@ def post():
 def comment():
     print "line 105"
     print request.form
-    query='''INSERT INTO comments (messages_id,user_id, comment, created_at, updated_at)
-                VALUES (:messages_id, :user_id, :comment, NOW(), NOW())'''
+    query='''INSERT INTO comments (message_id,user_id, comment, created_at, updated_at)
+                VALUES (:message_id, :user_id, :comment, NOW(), NOW())'''
     print "line 109"
     data = {
-            'messages_id':session['id'],
+            'id':session['id'],
             'message':request.form['message'],
             'comment': request.form['comment']
     }
@@ -135,6 +158,8 @@ def dcomment(id):
 #logout
 @app.route('/logout', methods=['GET'])
 def logout():
-    pass
+    session.clear()
+    print "Logged Out"
+    return redirect ('/')
 
 app.run(debug=True)
