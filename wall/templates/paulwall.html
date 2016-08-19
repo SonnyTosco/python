@@ -2,15 +2,31 @@
   <head>
     <title>Wonderwall</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/whatitdo.css') }}">
-    <link
   </head>
   <body>
+    {{session['id']}}
     <div id="menu">
+      <img src="http://static1.squarespace.com/static/53e15e38e4b04a0a09fcc77c/56673ac34bf11818f48a72f4/56673bdc40667a8a4e430242/1450277324217/Icon-48.png?format=500w" height="50" width="50">
+      <div id="left">
+        <p>Hello {{session['fname']}}</p>
+        <form action='/logout' method='GET'>
+          <input type="submit" value="Logout">
+        </form>
+      </div>
+      <hr>
     </div>
     <div id="post">
       <form action='/post' method='POST'>
-        Post: <input type="textarea" name="post"><br>
+        Post: <input type="textarea" name="message"><br>
         <input type="submit" value="Post">
+        <a href="/post/{{session['id']}}/delete">Delete</a>
+      </form>
+      {% for message in messages %}
+        <p>{{message['message']}}</p>
+      {% endfor %}
+      <form action='/comment' method='POST'>
+        Comment: <input type="textarea" name="comment"><br>
+        <input type="submit" value="Comment">
       </form>
     </div>
   </body>

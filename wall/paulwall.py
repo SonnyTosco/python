@@ -47,6 +47,7 @@ def create():
                  'password':  password,
                }
         mysql.query_db(query, data)
+        data = 	{'user_id': session.get('user_id')}
         return redirect("/paulwall")
     print "Degreez"
     return redirect('/')
@@ -72,6 +73,7 @@ def login():
             print "bcrypt methods, line 77:", dir(bcrypt)
             if bcrypt.check_password_hash(email[0]['password'], data['password']):
                 print "pw from db, line 77", email[0]['password']
+                session['id']=email[0]['id']
                 return redirect('/paulwall')
             else:
                 print "failed validation, line 80"
@@ -83,21 +85,51 @@ def login():
 #create POST
 @app.route('/post', methods=['POST'])
 def post():
-    pass
+    print "line 88"
+    print request.form
+    query =   '''INSERT INTO messages (users_id, message, created_at, updated_at)
+                VALUES (:id, :message, NOW(), NOW())'''
+    print "line 91"
+    data  = {
+            'id':session['id'],
+            'message': request.form['message']
+    }
+    print "line 96"
+    mysql.query_db(query, data)
+    print "line 98"
+    return redirect('/paulwall')
 
 #create comment
 @app.route('/comment', methods=['POST'])
 def comment():
-    pass
+    print "line 105"
+    print request.form
+    query='''INSERT INTO comments (messages_id,user_id, comment, created_at, updated_at)
+                VALUES (:messages_id, :user_id, :comment, NOW(), NOW())'''
+    print "line 109"
+    data = {
+            'messages_id':session['id'],
+            'message':request.form['message'],
+            'comment': request.form['comment']
+    }
+    print "line 114"
+    mysql.query_db(query, data)
+    return redirect ('/paulwall')
 
 #delete post
-@app.route('/dpost', methods=['GET'])
-def dpost():
-    pass
+@app.route('/post/<id>/delete', methods=['GET'])
+def dpost(id):
+    print "line 122"
+    query = "DELETE FROM messages WHERE id = :id"
+    data = {'id': id}
+    mysql.query_db(query, data)
+    print "line 126"
+    return redirect('/paulwall')
 
 #delete comment
-@app.route('/dcomment', methods=['GET'])
-def dcomment():
+@app.route('/comment/<id>/delete', methods=['GET'])
+def dcomment(id):
+    query = "DELETE FROM comments WHERE id = :id"
     pass
 
 #logout
