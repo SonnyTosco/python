@@ -18,18 +18,22 @@
       <form action='/post' method='POST'>
         Post: <input type="textarea" name="message"><br>
         <input type="submit" value="Post">
-        <a href="/post/{{session['id']}}/delete">Delete</a>
       </form>
-      {% for message in messages %}
-  			<p>{{message['message']}}</p>
-      {% endfor %}
-      <form action='/comment' method='POST'>
-        Comment: <input type="textarea" name="comment"><br>
-        <input type="submit" value="comment">
-      </form>
-      {% for comment in comments %}
-        <p>{{comment['comment']}}</p>
-      {% endfor %}
+        {% for message in messages %}
+          <p>{{message['message']}}</p>
+        {% if session['user_id']==message['user_id'] %}
+          <a href="/post/{{session['user_id']}}/delete">Delete</a>
+        {% endif %}
+        {% for comment in comments %}
+          {% if comment['message_id']==message['message_id'] %}
+            <p>{{comment['comment']}}</p>
+          {% endif %}
+        {% endfor %}
+          <form action="/comment/{{message['message_id']}}" method='POST'>
+            Comments: <textarea name="comment"></textarea>
+            <input type="submit" value="comment">
+          </form>
+        {% endfor %}
     </div>
   </body>
 </html>

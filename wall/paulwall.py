@@ -42,6 +42,7 @@ def wall():
                 JOIN users ON users.id=comments.user_id
                 ORDER BY comments.created_at DESC'''
     comments = mysql.query_db(query)
+    print comments
     return render_template("paulwall.html", user=user, messages=messages, comments=comments)
 
 #Add a new user
@@ -96,7 +97,7 @@ def login():
             print email
             if bcrypt.check_password_hash(email[0]['password'], data['password']):
                 print "pw from db, line 77", email[0]['password']
-                session['id']=email[0]['id']
+                session['user_id']=email[0]['id']
                 return redirect('/paulwall')
             else:
                 print "failed validation, line 80"
@@ -114,7 +115,7 @@ def post():
                 VALUES (:id, :message, NOW(), NOW())'''
     print "line 91"
     data  = {
-            'id':session['id'],
+            'id':session['user_id'],
             'message': request.form['message']
     }
     print "line 96"
@@ -123,16 +124,16 @@ def post():
     return redirect('/paulwall')
 
 #create comment
-@app.route('/comment', methods=['POST'])
-def comment():
+@app.route('/comment/<message_id>', methods=['POST'])
+def comment(message_id):
     print "line 105"
     print request.form
     query='''INSERT INTO comments (message_id,user_id, comment, created_at, updated_at)
                 VALUES (:message_id, :user_id, :comment, NOW(), NOW())'''
     print "line 109"
     data = {
-            'id':session['id'],
-            'message':request.form['message'],
+            'user_id': session['user_id'],
+            'message_id': message_id,
             'comment': request.form['comment']
     }
     print "line 114"
