@@ -5,35 +5,43 @@
   </head>
   <body>
     <div id="menu">
-      <img src="http://static1.squarespace.com/static/53e15e38e4b04a0a09fcc77c/56673ac34bf11818f48a72f4/56673bdc40667a8a4e430242/1450277324217/Icon-48.png?format=500w" height="50" width="50">
-      <div id="left">
-        <p>Hello {{session['fname']}}</p>
+      <img src="http://ih1.redbubble.net/image.66033997.1002/sticker,375x360.png" height="50" width="50">
+        <p>Hello {{user['fname']}}</p>
         <form action='/logout' method='GET'>
           <input type="submit" value="Logout">
         </form>
-      </div>
-      <hr>
     </div>
     <div id="post">
       <form action='/post' method='POST'>
-        Post: <input type="textarea" name="message"><br>
+        What's on your mind? <br><textarea name="message"></textarea><br>
         <input type="submit" value="Post">
       </form>
+      <div id="oldposts">
         {% for message in messages %}
-          <p>{{message['message']}}</p>
+          <hr>
+          <p>Post by: {{message['name']}}</p>
+          <br><p>{{message['message']}}</p><br>{{message['message_date']}}<br>
         {% if session['user_id']==message['user_id'] %}
-          <a href="/post/{{session['user_id']}}/delete">Delete</a>
+          <a href="/post/{{message['message_id']}}/delete">Delete</a><br>
         {% endif %}
         {% for comment in comments %}
           {% if comment['message_id']==message['message_id'] %}
-            <p>{{comment['comment']}}</p>
+            <div id="comment">
+              <p>Comment by: {{comment['name']}}</p><br>
+              <p>{{comment['comment']}}</p><br>{{comment['comment_date']}}<br>
+              {% if comment['user_id']==session['user_id'] %}
+                <a href="/comment/{{comment['comment_id']}}/delete">Delete</a><br>
+              {% endif %}
+            </div>
           {% endif %}
         {% endfor %}
+
           <form action="/comment/{{message['message_id']}}" method='POST'>
-            Comments: <textarea name="comment"></textarea>
-            <input type="submit" value="comment">
+            Comments: <br><textarea name="comment"></textarea><br>
+            <input type="submit" value="comment"><br>
           </form>
         {% endfor %}
+      </div>
     </div>
   </body>
 </html>

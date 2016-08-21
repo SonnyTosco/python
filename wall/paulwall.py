@@ -29,7 +29,8 @@ def wall():
     #messages
     query = '''SELECT message, messages.id as message_id,
     			messages.user_id as user_id,
-    			CONCAT(users.fname, ' ', users.lname) as name
+    			CONCAT(users.fname, ' ', users.lname) as name,
+                DATE_FORMAT(messages.created_at, '%M %D, %Y (%H:%i)') as message_date
     			FROM messages
     			LEFT JOIN users on messages.user_id = users.id
     			ORDER BY messages.created_at DESC
@@ -37,12 +38,17 @@ def wall():
     messages = mysql.query_db(query)
 
     #comments
-    query = '''SELECT comments.user_id, message_id, comment FROM comments
-                JOIN messages on messages.id=comments.message_id
-                JOIN users ON users.id=comments.user_id
-                ORDER BY comments.created_at DESC'''
-    comments = mysql.query_db(query)
-    print comments
+    query = """SELECT comments.comment as comment, comments.id as comment_id,
+				comments.message_id as message_id, comments.user_id as user_id,
+				CONCAT(users.fname, ' ', users.lname) as name,
+				DATE_FORMAT(comments.created_at, '%M %D, %Y (%H:%i )') as comment_date
+				FROM comments
+				LEFT JOIN users on comments.user_id = users.id
+				ORDER BY comments.created_at ASC
+			"""
+    comments = mysql.query_db(query, data)
+    for comment in comments:
+        print comment['comment_id']
     return render_template("paulwall.html", user=user, messages=messages, comments=comments)
 
 #Add a new user
@@ -141,20 +147,28 @@ def comment(message_id):
     return redirect ('/paulwall')
 
 #delete post
-@app.route('/post/<id>/delete', methods=['GET'])
-def dpost(id):
+@app.route('/post/<message_id>/delete', methods=['GET'])
+def dpost(message_id):
     print "line 122"
-    query = "DELETE FROM messages WHERE id = :id"
-    data = {'id': id}
+    data = {'message_id': message_id}
+    print message_id
+    query = "DELETE FROM comments WHERE comments.message_id= :message_id"
+    mysql.query_db(query, data)
+    query = "DELETE FROM messages WHERE messages.id = :message_id"
     mysql.query_db(query, data)
     print "line 126"
     return redirect('/paulwall')
 
 #delete comment
-@app.route('/comment/<id>/delete', methods=['GET'])
-def dcomment(id):
-    query = "DELETE FROM comments WHERE id = :id"
-    pass
+@app.route('/comment/<comment_id>/delete', methods=['GET'])
+def dcomment(comment_id):
+    print "line 157"
+    print comment_id
+    data = {'comment_id': comment_id}
+    query = "DELETE FROM comments WHERE comments.id = :comment_id"
+    mysql.query_db(query, data)
+    print "line 162"
+    return redirect('/paulwall')
 
 #logout
 @app.route('/logout', methods=['GET'])
